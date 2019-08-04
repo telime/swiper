@@ -112,7 +112,9 @@ const Scrollbar = {
       pointerPosition = ((e.type === 'touchstart' || e.type === 'touchmove') ? e.targetTouches[0].pageY : e.pageY || e.clientY);
     }
     let positionRatio;
-    positionRatio = ((pointerPosition) - $el.offset()[swiper.isHorizontal() ? 'left' : 'top'] - (dragSize / 2)) / (trackSize - dragSize);
+	  let clientRect = $el[0].getBoundingClientRect() ;
+	  let offset = swiper.isHorizontal() ? window.pageXOffset + clientRect.left : window.pageYOffset + clientRect.top ;
+    positionRatio = ((pointerPosition) - offset - (dragSize / 2)) / (trackSize - dragSize);
     positionRatio = Math.max(Math.min(positionRatio, 1), 0);
     if (rtl) {
       positionRatio = 1 - positionRatio;
